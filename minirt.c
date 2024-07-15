@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/15 12:16:32 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:09:21 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,32 @@ void davinchi(t_img *raw)
     int y;
 
     y = -1;
+    /*
+    Sphere equation(x^2 - a^2) + (y^2 - b^2) = r^2
+    I will set x = y = 0
+    now -> x^2 + y^2 = r^2 
+    */
+    int r = 210;
+    int a = WIDTH/2;
+    int b = HEIGHT/2;
     while (++y < HEIGHT)
     {
         x = -1;
         while (++x < WIDTH)
-            my_mlx_pp(raw, x, y, random());
+        {
+            if ((x*x) + (y*y) <= r*r)
+            {
+                if ((x + a < WIDTH) && (y + a < HEIGHT))
+                    my_mlx_pp(raw, x + a, y + b, random());
+                if ((-x + a < WIDTH) && (-y + a < HEIGHT))
+                    my_mlx_pp(raw, -x + a, -y + b, random());
+                if ((x + a < WIDTH) && (-y + a < HEIGHT))
+                    my_mlx_pp(raw, x + a, -y + b, random());
+                if ((-x + a < WIDTH) && (y + a < HEIGHT))
+                    my_mlx_pp(raw, -x + a, y + b, random());
+            }
+                
+        }
     }
 }
 
