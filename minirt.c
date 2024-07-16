@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/16 17:44:15 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:00:11 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void davinchi(t_img *raw)
     t_dot ray_o;
     t_dot ray_d;
     t_dot hit_p;
+    // unsigned int col;
     
     //degree 2, params
     float a;
@@ -51,6 +52,7 @@ void davinchi(t_img *raw)
     t_dot *light_d;
     float d;
 
+
     /*
         Sphere equation : (x^2 - a^2) + (y^2 - b^2) + (z^2 - c^2) = r^2
         to do raycasting on a sphere, we will change x, y
@@ -73,11 +75,11 @@ void davinchi(t_img *raw)
             b = 2.0f * _dot(ray_o, ray_d);
             c = _dot(ray_o, ray_o) - r*r;
 
-            delta = (b*b - 4.0f * a * c)/2;
+            delta = (b*b - 4.0f * a * c);
             if (delta < 0)
                 continue;
-            t1 = (b - sqrt(delta)) / (2.0f * a);
-            t2 = (-b - sqrt(delta)) / (2.0f * a);
+            t1 = (-b - sqrt(delta)) / (2.0f * a);
+            t2 = (-b + sqrt(delta)) / (2.0f * a);
             close_p = fmin(t1, t2);
 
             set_hit_p(&hit_p, ray_o, ray_d, close_p);
@@ -86,11 +88,15 @@ void davinchi(t_img *raw)
             set_dot(light_d, -1.0f, -1.0f, -1.0f);
             
             light_d = normalizer(light_d);
-            // vec_float(light_d, 1.0f);
 
             d = fmax(_dot(*normalize_p, *light_d), 0.0f); // it gives us the cos(angle)
+            unsigned int col = get_col((d * 0.5f) + 0.5f, 0xFFFF00FF);
+            //always d = t1
             if (delta >= 0.0f)
-                my_mlx_pp(raw, x, y, 0xFFFFFFFF * d );
+                my_mlx_pp(raw, x, y, col);
+            // else
+            //     my_mlx_pp(raw, x, y, 0xFF000000);
+
         }
     }
 }

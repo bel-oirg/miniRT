@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/16 16:46:36 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:15:53 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
 
 typedef struct	t_data
 {
@@ -29,6 +30,7 @@ typedef struct	t_data
 	int		endian;
 }   t_img;
 
+
 typedef struct s_dot
 {
 	float x;
@@ -36,8 +38,10 @@ typedef struct s_dot
 	float z;
 }	t_dot;
 
+long int degree_2(float a, float b, float c);
 float _dot(t_dot a, t_dot b);
 void set_dot(t_dot *point, float x, float y, float z);
 void vec_float(t_dot *point, float a);
+unsigned int get_col(float d, unsigned int base_color);
 void set_hit_p(t_dot *hit, t_dot origin, t_dot direction, float close);
 t_dot *normalizer(t_dot *p);
