@@ -6,14 +6,13 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/15 19:00:02 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:44:15 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdlib.h> //to use random() :)
 
-void my_mlx_pp(t_img *raw, int x, int y, int color)
+void my_mlx_pp(t_img *raw, int x, int y, unsigned int color)
 {
     char	*dst;
 
@@ -25,20 +24,37 @@ void davinchi(t_img *raw)
 {
     int x;
     int y;
+    
     t_dot ray_o;
     t_dot ray_d;
+    t_dot hit_p;
+    
+    //degree 2, params
     float a;
     float b;
     float c;
-    float r;
+
+    //solutions
+    float t1;
+    float t2;
+
+    //delta
     float delta;
-    r = 1.2f;
+
+    //raduis of the sphere
+    float r;
+    
+    float close_p;
+    r = 1.5f;
     set_dot(&ray_o, 0.0f, 0.0f, -2.0f);
+    t_dot *normalize_p;
+    t_dot *light_d;
+    float d;
 
     /*
-    Sphere equation : (x^2 - a^2) + (y^2 - b^2) + (z^2 - c^2) = r^2
-    to do raycasting on a sphere, we will change x, y
-    now -> x^2 + y^2 = r^2 
+        Sphere equation : (x^2 - a^2) + (y^2 - b^2) + (z^2 - c^2) = r^2
+        to do raycasting on a sphere, we will change x, y
+        now -> x^2 + y^2 = r^2 
     */
     y = -1;
     while (++y < HEIGHT)
@@ -56,10 +72,25 @@ void davinchi(t_img *raw)
             a = _dot(ray_d, ray_d);
             b = 2.0f * _dot(ray_o, ray_d);
             c = _dot(ray_o, ray_o) - r*r;
-            delta = b*b - 4.0f * a * c;
 
+            delta = (b*b - 4.0f * a * c)/2;
+            if (delta < 0)
+                continue;
+            t1 = (b - sqrt(delta)) / (2.0f * a);
+            t2 = (-b - sqrt(delta)) / (2.0f * a);
+            close_p = fmin(t1, t2);
+
+            set_hit_p(&hit_p, ray_o, ray_d, close_p);
+            normalize_p = normalizer(&hit_p);
+
+            set_dot(light_d, -1.0f, -1.0f, -1.0f);
+            
+            light_d = normalizer(light_d);
+            // vec_float(light_d, 1.0f);
+
+            d = fmax(_dot(*normalize_p, *light_d), 0.0f); // it gives us the cos(angle)
             if (delta >= 0.0f)
-                my_mlx_pp(raw, x, y, 0xFF0000 );
+                my_mlx_pp(raw, x, y, 0xFFFFFFFF * d );
         }
     }
 }
