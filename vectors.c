@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:17:49 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/16 20:52:09 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:39:38 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,33 @@ float _dot(t_dot a, t_dot b)
     return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-void set_dot(t_dot *point, float x, float y, float z)
+t_dot *get_vec(float x, float y, float z)
 {
+    t_dot *point;
+
+    point = malloc(sizeof(t_dot));
     point->x = x;
     point->y = y;
     point->z = z;
+    return (point);
 }
 
-void vec_float(t_dot *point, float a)
+void vec_x_float(t_dot *point, float a)
 {
     point->x *= a;
     point->y *= a;
     point->z *= a;
 }
 
-void set_hit_p(t_dot *hit, t_dot origin, t_dot direction, float close)
+t_dot *set_hit_p(t_dot origin, t_dot direction, float close)
 {
+    t_dot *hit;
+
+    hit = malloc(sizeof(t_dot));
     hit->x = origin.x + direction.x * close;
     hit->y = origin.y + direction.y * close;
     hit->z = origin.z + direction.z * close;
+    return (hit);
 }
 
 float   get_lengh(t_dot a)
@@ -73,16 +81,15 @@ unsigned int get_col(float d, unsigned int base_color)
     return ((alpha << 24) | (red << 16) | (green << 8) | (blue));
 }
 
-long int degree_2(float a, float b, float c)
+float degree_2(float a, float b, float c)
 {
     float delta;
     float t1;
     float t2;
 
     delta = (b * b - 4.0f * a * c);
-    printf("%f ---- %f - %f - %f\n", delta, a, b, c);
     if (delta < 0)
-        return (LONG_MIN);
+        return (NAN);
     t1 = (-b - sqrt(delta)) / (2.0f * a);
     t2 = (-b + sqrt(delta)) / (2.0f * a);
     return (t1);
