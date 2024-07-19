@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/18 00:04:00 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:37:23 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,16 @@ void my_mlx_pp(t_img *raw, int x, int y, unsigned int color)
 	*(unsigned int*)dst = color;
 }
 
-unsigned int trgb_conv(float t, float r, float g, float b)
+unsigned int trgb_conv(float r, float g, float b)
 {
-    int             trans;
-    int             red;
-    int             green;
-    int             blue;
+    u_int8_t             red;
+    u_int8_t             green;
+    u_int8_t             blue;
 
-    trans = 255 * t;
     red = 255 * r;
     green = 255 * g;
     blue = 255 * b;
-    return (trans << 24 | red << 16 | green << 8 | blue);
+    return (red << 16 | green << 8 | blue);
 }
 
 
@@ -82,12 +80,13 @@ void sphere(t_img *raw)
             hit_p = normalizer(set_hit_p(*ray_o, *ray_d, close_p));
             light_d = normalizer(get_vec(1.0f, 1.0f, 1.0f));
 
-            d = fmax(_dot(*hit_p, *light_d), 0.0f);
+            d = _dot(*hit_p, *light_d);
             // (p . light_d) = cos(angle) - it gives us the diff angle
-            col = get_col((d * 0.5f) + 0.5f, trgb_conv(1.0f, 1.0f, 1.0f, 1));
+            col = get_col((d * 0.5f) + 0.5f, trgb_conv(1.0f, 1.0f, 1.0f));
             if (isnan(close_p))
-                col =  trgb_conv(1.0f, 1.0f, 1.0f, 1.0f);
+                continue ;
             my_mlx_pp(raw, x, y, col);
+            
         }
     }
 }

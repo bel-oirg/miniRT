@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:17:49 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/17 22:30:07 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:37:12 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,15 @@ t_dot *normalizer(t_dot *p)
 
 unsigned int get_col(float d, unsigned int base_color)
 {
-    unsigned int red;
-    unsigned int green;
-    unsigned int blue;
-    unsigned int alpha;
+    u_int8_t red;
+    u_int8_t green;
+    u_int8_t blue;
 
-    alpha = ((base_color >> 24) & 255 ) * d;
     red = ((base_color >> 16) & 255) * d;
     green = ((base_color >> 8) & 255) * d;
     blue = ((base_color) & 255) * d;
 
-    return ((alpha << 24) | (red << 16) | (green << 8) | (blue));
+    return ((red << 16) | (green << 8) | (blue));
 }
 
 float degree_2(float a, float b, float c)
