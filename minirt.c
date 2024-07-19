@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/19 19:37:23 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:48:12 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void my_mlx_pp(t_img *raw, int x, int y, unsigned int color)
 	*(unsigned int*)dst = color;
 }
 
-unsigned int trgb_conv(float r, float g, float b)
+unsigned int rgb_conv(float r, float g, float b)
 {
     u_int8_t             red;
     u_int8_t             green;
@@ -32,66 +32,54 @@ unsigned int trgb_conv(float r, float g, float b)
     return (red << 16 | green << 8 | blue);
 }
 
-
-void sphere(t_img *raw)
+void sphere(t_img *raw, float r)
 {
     int x;
     int y;
-    
     t_dot *ray_o;
     t_dot *ray_d;
     t_dot *hit_p;
     t_dot *light_d;
-
-    // unsigned int col;
-    unsigned int col;
-
-    //raduis of the sphere
-    float r;
+    t_dot *sphere_o;
+    t_dot *origin;
     float close_p;
+    float angle;
 
-    r = 1.0f;
+    sphere_o = get_vec(-1.0f, 0.0f, 0.0f);
     ray_o = get_vec(0.0f, 0.0f, -2.0f);
-    float d;
-
+    origin = v_v(ray_o, '-', sphere_o);
     /*
         Sphere equation : (x^2 - a^2) + (y^2 - b^2) + (z^2 - c^2) = r^2
     */
-
     y = -1;
     while (++y < HEIGHT)
     {
         x = -1;
         while (++x < WIDTH)
         {
-            ray_d = get_vec((float)x/WIDTH, (float)y/HEIGHT, -0.0f);
+            ray_d = get_vec((float)x/WIDTH, (float)y/HEIGHT, 0.0f);
             /*
                 to centralize the spher - [0, 1] --> [-1, 1]
                 ray_d = ray_d * 2.0f - 1.0f
             */
-            vec_x_float(ray_d, 2.0f);
-            vec_plus_float(ray_d, -1);
+            ray_d = v_f(v_f(ray_d, '*', 2.0f), '-', 1.0f);
 
             close_p = degree_2( _dot(*ray_d, *ray_d), // a
-                        2.0f * _dot(*ray_o, *ray_d),  // b
-                        _dot(*ray_o, *ray_o) - r*r);  // c
-
-            // plug t0 -> a + bt
-            hit_p = normalizer(set_hit_p(*ray_o, *ray_d, close_p));
-            light_d = normalizer(get_vec(1.0f, 1.0f, 1.0f));
-
-            d = _dot(*hit_p, *light_d);
-            // (p . light_d) = cos(angle) - it gives us the diff angle
-            col = get_col((d * 0.5f) + 0.5f, trgb_conv(1.0f, 1.0f, 1.0f));
+                        2.0f * _dot(*origin, *ray_d),  // b
+                        _dot(*origin, *origin) - r*r);  // c
             if (isnan(close_p))
                 continue ;
-            my_mlx_pp(raw, x, y, col);
+            // plug t0 -> a + bt
+            hit_p = normalizer(v_v(origin, '+', v_f(ray_d, '*', close_p)));
+            light_d = normalizer(get_vec(1.0f, 1.0f, 1.0f));
+
+            angle = _dot(*hit_p, *light_d) * 0.5f + 0.5f;
+            // (p . light_d) = cos(angle) - it gives us the diff angle
             
+            my_mlx_pp(raw, x, y, get_col(angle, rgb_conv(1.0f, 1.0f, 1.0f)));
         }
     }
 }
-
-
 
 void init_minirt(t_buddha *v)
 {
@@ -119,12 +107,12 @@ int key_destroy(int key, t_buddha *v)
 
 int main()
 {
-    t_buddha *v;
+    t_buddha    *v;
 
     v = my_malloc(sizeof(t_buddha), 1);
     v->raw_img = my_malloc(sizeof(t_img), 1);
     init_minirt(v);
-    sphere(v->raw_img);
+    sphere(v->raw_img, 0.8f);
     mlx_put_image_to_window(v->mlx, v->win, v->raw_img->img, 0, 0);
     mlx_hook(v->win, 17, 2, destroy_rt, v);
     mlx_hook(v->win, 2, 2, key_destroy, v);

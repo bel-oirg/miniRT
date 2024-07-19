@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/17 22:38:59 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:20:46 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	*my_malloc(size_t size, int mode);
 float degree_2(float a, float b, float c);
 float _dot(t_dot a, t_dot b);
 t_dot *get_vec(float x, float y, float z);
-void vec_x_float(t_dot *point, float a);
 unsigned int get_col(float d, unsigned int base_color);
 t_dot *set_hit_p(t_dot origin, t_dot direction, float close);
 t_dot *normalizer(t_dot *p);
-void vec_plus_float(t_dot *point, float a);
+t_dot *v_v(t_dot *p1, char op, t_dot *p2);
+t_dot *v_f(t_dot *p, char op, float a);

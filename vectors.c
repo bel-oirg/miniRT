@@ -6,12 +6,11 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:17:49 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/19 19:37:12 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:20:55 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdio.h>
 
 float _dot(t_dot a, t_dot b)
 {
@@ -29,18 +28,55 @@ t_dot *get_vec(float x, float y, float z)
     return (point);
 }
 
-void vec_x_float(t_dot *point, float a)
+t_dot *v_f(t_dot *p, char op, float a)
 {
-    point->x *= a;
-    point->y *= a;
-    point->z *= a;
+    float   x;
+    float   y;
+    float   z;
+
+    x = 0.0f;
+    y = 0.0f;
+    z = 0.0f;
+    if (op == '+' || op == '-')
+    {
+        (op == '-') && (a = -a);
+        x = p->x + a;
+        y = p->y + a;
+        z = p->z + a;
+    }
+    else if (op == '*' || op == '/')
+    {
+        (op == '/') && (a = 1.0f/a);
+        x = p->x * a;
+        y = p->y * a;
+        z = p->z * a;
+    }
+    else
+        return (printf("Unknown op"), NULL);
+    return (get_vec(x, y, z));
 }
 
-void vec_plus_float(t_dot *point, float a)
+t_dot *v_v(t_dot *p1, char op, t_dot *p2)
 {
-    point->x += a;
-    point->y += a;
-    point->z += a;
+    float x;
+    float y;
+    float z;
+    
+    if (op == '+')
+    {
+        x = p1->x + p2->x;
+        y = p1->y + p2->y;
+        z = p1->z + p2->z;
+    }
+    else if (op == '-')
+    {
+        x = p1->x - p2->x;
+        y = p1->y - p2->y;
+        z = p1->z - p2->z;
+    }
+    else
+        return (printf("Unknown op"), NULL);
+    return (get_vec(x, y, z));
 }
 
 t_dot *set_hit_p(t_dot origin, t_dot direction, float close)
