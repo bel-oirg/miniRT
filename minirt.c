@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/20 03:30:10 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:37:15 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ unsigned int rgb_conv(float r, float g, float b)
     return (red << 16 | green << 8 | blue);
 }
 
-void sphere(t_img *raw, float r)
+void sphere(t_img *raw, float r, float x_trans)
 {
     int x;
     int y;
@@ -42,12 +42,15 @@ void sphere(t_img *raw, float r)
     t_dot *light_d;
     t_dot *sphere_o;
     t_dot *origin;
+    t_dot *transf;
     float close_p;
     float angle;
 
     sphere_o = get_vec(0.0f, 0.0f, 0.0f);
     ray_o = get_vec(0.0f, 0.0f, -2.0f);
     origin = v_v(ray_o, '-', sphere_o);
+
+    transf = get_vec(x_trans, 0.0f, 0.0f);
     /*
         Sphere equation : (x^2 - a^2) + (y^2 - b^2) + (z^2 - c^2) = r^2
     */
@@ -62,6 +65,7 @@ void sphere(t_img *raw, float r)
                 to centralize the spher - [0, 1] --> [-1, 1]
                 ray_d = ray_d * 2.0f - 1.0f
             */
+            ray_d = v_v(ray_d, '+', transf);
             ray_d = v_f(v_f(ray_d, '*', 2.0f), '-', 1.0f);
 
             close_p = degree_2( _dot(*ray_d, *ray_d),   // a
@@ -112,7 +116,8 @@ int main()
     v = my_malloc(sizeof(t_buddha), 1);
     v->raw_img = my_malloc(sizeof(t_img), 1);
     init_minirt(v);
-    sphere(v->raw_img, 0.8f);
+    sphere(v->raw_img, 0.4f, 0.2f);
+    sphere(v->raw_img, 0.4f, -0.2f);
     mlx_put_image_to_window(v->mlx, v->win, v->raw_img->img, 0, 0);
     mlx_hook(v->win, 17, 2, destroy_rt, v);
     mlx_hook(v->win, 2, 2, key_destroy, v);
