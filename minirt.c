@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/19 21:48:12 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/20 03:30:10 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void sphere(t_img *raw, float r)
     float close_p;
     float angle;
 
-    sphere_o = get_vec(-1.0f, 0.0f, 0.0f);
+    sphere_o = get_vec(0.0f, 0.0f, 0.0f);
     ray_o = get_vec(0.0f, 0.0f, -2.0f);
     origin = v_v(ray_o, '-', sphere_o);
     /*
@@ -64,8 +64,8 @@ void sphere(t_img *raw, float r)
             */
             ray_d = v_f(v_f(ray_d, '*', 2.0f), '-', 1.0f);
 
-            close_p = degree_2( _dot(*ray_d, *ray_d), // a
-                        2.0f * _dot(*origin, *ray_d),  // b
+            close_p = degree_2( _dot(*ray_d, *ray_d),   // a
+                        2.0f * _dot(*origin, *ray_d),   // b
                         _dot(*origin, *origin) - r*r);  // c
             if (isnan(close_p))
                 continue ;
@@ -76,7 +76,7 @@ void sphere(t_img *raw, float r)
             angle = _dot(*hit_p, *light_d) * 0.5f + 0.5f;
             // (p . light_d) = cos(angle) - it gives us the diff angle
             
-            my_mlx_pp(raw, x, y, get_col(angle, rgb_conv(1.0f, 1.0f, 1.0f)));
+            my_mlx_pp(raw, x, y, get_col(angle, rgb_conv(1.0f, 0.0f, 1.0f)));
         }
     }
 }
