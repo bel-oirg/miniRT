@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:17:49 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/19 21:20:55 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:16:44 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_dot *v_v(t_dot *p1, char op, t_dot *p2)
     float x;
     float y;
     float z;
-    
+
     if (op == '+')
     {
         x = p1->x + p2->x;
@@ -73,6 +73,12 @@ t_dot *v_v(t_dot *p1, char op, t_dot *p2)
         x = p1->x - p2->x;
         y = p1->y - p2->y;
         z = p1->z - p2->z;
+    }
+    else if (op == '&')
+    {
+        x = p1->x * p2->x;
+        y = p1->y * p2->y;
+        z = p1->z * p2->z;
     }
     else
         return (printf("Unknown op"), NULL);

@@ -6,14 +6,14 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/19 21:20:46 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:33:34 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#define WIDTH  1000
-#define HEIGHT 1000
+#define WIDTH  1400
+#define HEIGHT 1400
 
 #include <mlx.h>
 #include <math.h>
