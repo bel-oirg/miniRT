@@ -6,14 +6,14 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/20 23:33:34 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:16:43 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#define WIDTH  1400
-#define HEIGHT 1400
+#define WIDTH  1000
+#define HEIGHT 1000
 
 #include <mlx.h>
 #include <math.h>
@@ -63,3 +63,8 @@ t_dot *set_hit_p(t_dot origin, t_dot direction, float close);
 t_dot *normalizer(t_dot *p);
 t_dot *v_v(t_dot *p1, char op, t_dot *p2);
 t_dot *v_f(t_dot *p, char op, float a);
+
+//rotation matrix
+t_dot	*rot_x(t_dot ray, double norm_angle);
+t_dot	*rot_y(t_dot ray, double norm_angle);
+t_dot	*rot_z(t_dot ray, double norm_angle);
