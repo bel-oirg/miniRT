@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/22 01:52:22 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/22 04:15:58 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,13 @@ unsigned int rgb_conv(float r, float g, float b)
     return (red << 16 | green << 8 | blue);
 }
 
-/*
-    half_view ← tan(camera.field_of_view / 2)
-    aspect ← camera.hsize / camera.vsize
-
-    if aspect >= 1 then
-        camera.half_width ← half_view
-        camera.half_height ← half_view / aspect
-    else
-        camera.half_width ← half_view * aspect
-        camera.half_height ← half_view
-    end if
-
-    camera.pixel_size ← (camera.half_width * 2) / camera.hsize
-*/
-
 void init_cam(t_cam *cam)
 {
     cam->ratio = (double) WIDTH/HEIGHT;
     cam->field_of_view = 1.8f;
     cam->half_view = tan(cam->field_of_view/2);
     cam->transf = get_vec(0.0f, 0.0f, 0.0f);
+    cam->cam_o = get_vec(0.0f, 0.0f, -2.0f);
 
     if (cam->ratio >= 1)
         cam->half_width = cam->half_view,
@@ -73,7 +59,6 @@ void sphere(t_img *raw, float r, t_cam *cam)
     int x;
     int y;
 
-    t_dot *ray_o;
     t_dot *ray_d;
     t_dot *hit_p;
     t_dot *light_d;
@@ -86,10 +71,8 @@ void sphere(t_img *raw, float r, t_cam *cam)
     float y_offset;
 
     sphere_o = get_vec(0.0f, 0.0f, 0.0f);
-    ray_o = get_vec(0.0f, 0.0f, -2.0f);
-    origin = v_v(ray_o, '-', sphere_o);
+    origin = v_v(cam->cam_o, '-', sphere_o);
     light_d = normalizer(get_vec(1.0f, 1.0f, 1.0f));
-
     y = -1;
     while (++y < HEIGHT)
     {
@@ -98,15 +81,9 @@ void sphere(t_img *raw, float r, t_cam *cam)
         {
             x_offset = (x + 0.5) * cam->pixel_move;
             y_offset = (y + 0.5) * cam->pixel_move;
-            
             ray_d = get_vec(cam->half_width - x_offset, cam->half_height - y_offset, -1.0f);
+            ray_d = v_v(ray_d, '-', cam->cam_o);
             // ray_d = v_v(ray_d, '+', cam->transf);
-            // ray_d = rot_y(*ray_d, 0.2);
-            // ray_d = rot_x(*ray_d, 0.2);
-            // ray_d = rot_z(*ray_d, 0.2);
-            ray_d = normalizer(ray_d);
-
-            
             close_p = degree_2( _dot(*ray_d, *ray_d),   // a
                         2.0f * _dot(*origin, *ray_d),   // b
                         _dot(*origin, *origin) - r*r);  // c
@@ -115,7 +92,8 @@ void sphere(t_img *raw, float r, t_cam *cam)
             hit_p = normalizer(v_v(origin, '+', v_f(ray_d, '*', close_p)));
             angle = _dot(*hit_p, *light_d) * 0.5f + 0.5f;
             // (p . light_d) = cos(angle) - it gives us the diff angle
-            my_mlx_pp(raw, x, y, get_col(angle, rgb_conv(1.0f, 0.0f, 1.0f)));
+            my_mlx_pp(raw, x, y, UINT32_MAX * angle);
+            // my_mlx_pp(raw, x, y, get_col(angle, rgb_conv(1.0f, 0.0f, 1.0f)));
         }
     }
 }

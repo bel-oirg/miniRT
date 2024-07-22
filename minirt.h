@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/22 01:40:25 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:25:50 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 typedef struct s_cam
 {
     t_dot *transf;
+	t_dot *cam_o;
     double field_of_view;
     double half_view;
     double half_width;
