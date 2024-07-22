@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/21 21:16:43 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/22 01:40:25 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct	s_img
 	int		endian;
 }   t_img;
 
+
+
 typedef struct s_buddha
 {
 	t_img *raw_img;
@@ -50,6 +52,16 @@ typedef struct s_data
 	struct s_data	*next;
 }	t_data;
 
+typedef struct s_cam
+{
+    t_dot *transf;
+    double field_of_view;
+    double half_view;
+    double half_width;
+    double half_height;
+	double ratio;
+	double pixel_move;
+} t_cam;
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);
