@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/22 02:25:50 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 00:22:19 by abennar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct s_cam
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);
+
+void my_mlx_pp(t_img *raw, int x, int y, unsigned int color);
+unsigned int rgb_conv(float r, float g, float b);
 
 //vector
 float degree_2(float a, float b, float c);
