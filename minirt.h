@@ -6,14 +6,14 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 08:50:25 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 09:03:46 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#define WIDTH  1000
-#define HEIGHT 1000
+#define WIDTH  1200
+#define HEIGHT 1200
 
 #include <mlx.h>
 #include <math.h>
@@ -77,6 +77,19 @@ typedef struct s_light
 	t_dot	*color;
 	t_dot	*light_point;
 }	t_light;
+
+typedef struct s_phong
+{
+    t_dot *ambient;
+    t_dot *specular;
+    t_dot *diffuse;
+    t_dot *lightv;
+    t_dot *reflectv;
+    t_dot *effective_color;
+    double factor;
+    double light_dot_normal;
+    double reflect_dot_eye;
+}	t_phong;
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);
