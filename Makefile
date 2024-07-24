@@ -6,13 +6,13 @@
 #    By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 01:38:09 by bel-oirg          #+#    #+#              #
-#    Updated: 2024/07/24 08:35:37 by bel-oirg         ###   ########.fr        #
+#    Updated: 2024/07/25 00:35:36 by bel-oirg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT  
 
-GLFLAGS = -lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g
+GLFLAGS = -lmlx -framework OpenGL -framework AppKit# -fsanitize=address -g
 
 CFLAGS = -Wall -Wextra -Werror -Imlx
 

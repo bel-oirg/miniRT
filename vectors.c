@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:17:49 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 04:17:42 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 22:08:30 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_dot *normalizer(t_dot *p)
     len = get_length(*p);
     if (len)
     {
-        x = (p->x)/len; //TODO CHECK if len == 0
+        x = (p->x)/len;
         y = (p->y)/len;
         z = (p->z)/len;
         return (get_vec(x, y, z));

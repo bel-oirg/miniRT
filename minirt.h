@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 09:03:46 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/25 00:31:13 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,24 @@ typedef struct s_phong
     double light_dot_normal;
     double reflect_dot_eye;
 }	t_phong;
+
+// typedef struct s_world
+// {
+//     t_light *light;
+//     t_cam   *cam;
+
+//     t_sphere sph1, ...;
+//     t_cylinder 
+
+// }   t_world;
+
+typedef struct s_sphere
+{
+    t_material  *material;
+    double      raduis;
+    t_dot       *sphere_o;
+    struct      s_sphere *next;
+} t_sphere;
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);

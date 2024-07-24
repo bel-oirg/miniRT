@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 04:15:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 04:16:53 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 22:16:38 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ float degree_2(float a, float b, float c)
     if (delta < 0)
         return (NAN);
     t1 = (-b - sqrt(delta)) / (2.0f * a);
-    t2 = (-b + sqrt(delta)) / (2.0f * a);
+    t2 = (-b + sqrt(delta)) / (2.0f * a); //TODO maybe remove this one
     return (t1);
 }
