@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 00:22:19 by abennar          ###   ########.fr       */
+/*   Updated: 2024/07/24 03:51:00 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ typedef struct	s_img
 	int		line_length;
 	int		endian;
 }   t_img;
-
-
 
 typedef struct s_buddha
 {
@@ -62,13 +60,26 @@ typedef struct s_cam
     double half_height;
 	double ratio;
 	double pixel_move;
-} t_cam;
+}	t_cam;
+
+typedef struct s_material
+{
+    t_dot	*color;
+    double	ambient;
+    double	diffuse;
+    double	specular;
+    double	shininess;
+}	t_material;
+
+typedef struct s_light
+{
+	double	intensity;
+	t_dot	*color;
+	t_dot	*light_point;
+}	t_light;
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);
-
-void my_mlx_pp(t_img *raw, int x, int y, unsigned int color);
-unsigned int rgb_conv(float r, float g, float b);
 
 //vector
 float degree_2(float a, float b, float c);
@@ -79,6 +90,8 @@ t_dot *set_hit_p(t_dot origin, t_dot direction, float close);
 t_dot *normalizer(t_dot *p);
 t_dot *v_v(t_dot *p1, char op, t_dot *p2);
 t_dot *v_f(t_dot *p, char op, float a);
+t_dot *reflect(t_dot *in, t_dot *normal);
+t_dot *rgb_v(unsigned int base_color);
 
 //rotation matrix
 t_dot	*rot_x(t_dot ray, double norm_angle);

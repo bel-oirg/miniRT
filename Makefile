@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+         #
+#    By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 01:38:09 by bel-oirg          #+#    #+#              #
-#    Updated: 2024/07/24 00:18:20 by abennar          ###   ########.fr        #
+#    Updated: 2024/07/21 16:32:31 by bel-oirg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT  
 
-GLFLAGS = -lmlx -framework OpenGL -framework AppKit # -fsanitize=address -g
+GLFLAGS = -lmlx -framework OpenGL -framework AppKit# -fsanitize=address -g
 
 CFLAGS = -Wall -Wextra -Werror -Imlx
 
 RM = rm -rf
 
-SRCS = 	minirt.c vectors.c my_malloc.c rotation_matrix.c cylinder.c plane.c
+SRCS = 	minirt.c vectors.c my_malloc.c rotation_matrix.c
 
 OBJS = $(SRCS:.c=.o)
 
