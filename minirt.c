@@ -6,11 +6,12 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 04:13:40 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 08:14:12 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <limits.h>
 
 t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav, t_dot *normalv)
 {
@@ -38,6 +39,7 @@ t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camer
     else
     {
         diffuse = v_f(effective_color,  '*',  (material->diffuse * light_dot_normal));
+        lightv = v_f(lightv, '*', -1);
         reflectv = reflect(lightv, normalv);
         reflect_dot_eye = (double)_dot(*reflectv, *camerav);
         if (reflect_dot_eye <= 0)
@@ -103,7 +105,7 @@ void sphere(t_img *raw, float r, t_cam *cam)
 
     light->color = get_vec(1, 1, 1);
     light->light_point = get_vec(-10, 10, -10);
-    light->intensity = 1;
+    light->intensity = 0.7;
     //----------
 
     sphere_o = get_vec(0.0f, 0.0f, 0.0f);
@@ -115,13 +117,6 @@ void sphere(t_img *raw, float r, t_cam *cam)
         x = -1;
         while (++x < WIDTH)
         {
-            /*
-                point ← position(ray, hit.t)                /// -> hit_p
-                normal ← normal_at(hit.object, point)       /// normalize(hit_p)
-                eye ← -ray.direction                        /// ray_d * -1
-
-                color ← lighting(hit.object.material, light, point, eye, normal)
-            */
             x_offset = (x + 0.5) * cam->pixel_move;
             y_offset = (y + 0.5) * cam->pixel_move;
             ray_d = get_vec(cam->half_width - x_offset, cam->half_height - y_offset, 1.0f);
@@ -132,7 +127,6 @@ void sphere(t_img *raw, float r, t_cam *cam)
             if (isnan(close_p))
                 continue ;
             hit_p = v_v(origin, '+', v_f(ray_d, '*', close_p));
-            // angle = _dot(*hit_p, *light_d) * 0.5f + 0.5f;
             out_col = lighting(material, light, hit_p, v_f(ray_d, '*', -1), normalizer(hit_p));
             my_mlx_pp(raw, x, y, rgb_conv(out_col->x, out_col->y, out_col->z));
         }
