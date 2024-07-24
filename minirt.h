@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 03:51:00 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 04:19:49 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,30 @@ typedef struct s_light
 //my_malloc
 void	*my_malloc(size_t size, int mode);
 
-//vector
-float degree_2(float a, float b, float c);
-float _dot(t_dot a, t_dot b);
+//vectors
 t_dot *get_vec(float x, float y, float z);
-unsigned int get_col(float d, unsigned int base_color);
-t_dot *set_hit_p(t_dot origin, t_dot direction, float close);
 t_dot *normalizer(t_dot *p);
 t_dot *v_v(t_dot *p1, char op, t_dot *p2);
 t_dot *v_f(t_dot *p, char op, float a);
 t_dot *reflect(t_dot *in, t_dot *normal);
-t_dot *rgb_v(unsigned int base_color);
+
+//vectors2
+float _dot(t_dot a, t_dot b);
+float   get_length(t_dot a);
+float degree_2(float a, float b, float c);
+
+//ft_mlx
+int key_destroy(int key, t_buddha *v);
+void my_mlx_pp(t_img *raw, int x, int y, unsigned int color);
+int	destroy_rt(t_buddha *v);
+void init_mlx(t_buddha *v);
 
 //rotation matrix
 t_dot	*rot_x(t_dot ray, double norm_angle);
 t_dot	*rot_y(t_dot ray, double norm_angle);
 t_dot	*rot_z(t_dot ray, double norm_angle);
+
+//colors
+unsigned int rgb_conv(float r, float g, float b);
+unsigned int get_col(float d, unsigned int base_color);
+t_dot *rgb_v(unsigned int base_color);

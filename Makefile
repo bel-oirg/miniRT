@@ -6,19 +6,20 @@
 #    By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 01:38:09 by bel-oirg          #+#    #+#              #
-#    Updated: 2024/07/21 16:32:31 by bel-oirg         ###   ########.fr        #
+#    Updated: 2024/07/24 04:20:49 by bel-oirg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT  
 
-GLFLAGS = -lmlx -framework OpenGL -framework AppKit# -fsanitize=address -g
+GLFLAGS = -lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g
 
 CFLAGS = -Wall -Wextra -Werror -Imlx
 
 RM = rm -rf
 
-SRCS = 	minirt.c vectors.c my_malloc.c rotation_matrix.c
+SRCS = 	minirt.c vectors.c my_malloc.c rotation_matrix.c  \
+		colors.c ft_mlx.c plane.c cylinder.c vectors2.c
 
 OBJS = $(SRCS:.c=.o)
 
