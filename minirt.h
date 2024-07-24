@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 04:19:49 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 08:28:30 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ float degree_2(float a, float b, float c);
 int key_destroy(int key, t_buddha *v);
 void my_mlx_pp(t_img *raw, int x, int y, unsigned int color);
 int	destroy_rt(t_buddha *v);
-void init_mlx(t_buddha *v);
+t_buddha *init_mlx();
 
 //rotation matrix
 t_dot	*rot_x(t_dot ray, double norm_angle);

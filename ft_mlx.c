@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 04:08:24 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 04:09:40 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 08:27:34 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void my_mlx_pp(t_img *raw, int x, int y, unsigned int color)
 	*(unsigned int*)dst = color;
 }
 
-void init_mlx(t_buddha *v)
+t_buddha *init_mlx()
 {
+    t_buddha *v;
+    
+    v = my_malloc(sizeof(t_buddha), 1);
+    v->raw_img = my_malloc(sizeof(t_img), 1);
     v->mlx = mlx_init(); //TODO check if it fails
     v->win = mlx_new_window(v->mlx, WIDTH, HEIGHT, "The miniRT");
     v->raw_img->img = mlx_new_image(v->mlx, WIDTH, HEIGHT);
@@ -29,6 +33,7 @@ void init_mlx(t_buddha *v)
                             &v->raw_img->bits_per_pixel,
                             &v->raw_img->line_length,
                             &v->raw_img->endian);
+    return (v);
 }
 
 int	destroy_rt(t_buddha *v)

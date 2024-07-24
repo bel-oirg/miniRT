@@ -6,12 +6,11 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 08:14:12 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 08:29:04 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <limits.h>
 
 t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav, t_dot *normalv)
 {
@@ -53,8 +52,11 @@ t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camer
     return (v_v(v_v(ambient, '+', diffuse),  '+', specular));
 }
 
-void init_cam(t_cam *cam)
+t_cam *init_cam()
 {
+    t_cam *cam;
+
+    cam = my_malloc(sizeof(t_cam), 1);
     cam->ratio = (double) WIDTH/HEIGHT;
     cam->field_of_view = 0.9f;
     cam->half_view = tan(cam->field_of_view/2);
@@ -69,13 +71,14 @@ void init_cam(t_cam *cam)
         cam->half_height = cam->half_view;
 
     cam->pixel_move = (cam->half_width * 2) / WIDTH;
+    return (cam);
 }
 
 /*
     Sphere equation : (x^2 - a^2) + (y^2 - b^2) + (z^2 - c^2) = r^2
 */
 
-void sphere(t_img *raw, float r, t_cam *cam)
+void sphere(t_img *raw, float r, t_cam *cam, t_light *light, t_material *material)
 {
     int x;
     int y;
@@ -91,22 +94,6 @@ void sphere(t_img *raw, float r, t_cam *cam)
     float close_p;
     float x_offset;
     float y_offset;
-
-    //----------
-    t_material  *material = malloc(sizeof(t_material));
-    t_light     *light = malloc(sizeof(t_light));
-
-    material->ambient = 0.1;
-    material->diffuse = 0.9;
-
-    material->specular = 0.9;
-    material->shininess = 200.0;
-    material->color = get_vec(1, 0.2, 1);
-
-    light->color = get_vec(1, 1, 1);
-    light->light_point = get_vec(-10, 10, -10);
-    light->intensity = 0.7;
-    //----------
 
     sphere_o = get_vec(0.0f, 0.0f, 0.0f);
     origin = v_v(cam->cam_o, '-', sphere_o);
@@ -133,17 +120,42 @@ void sphere(t_img *raw, float r, t_cam *cam)
     }
 }
 
+t_material  *init_material()
+{
+    t_material  *material;
+
+    material = my_malloc(sizeof(t_material), 1);
+    material->ambient = 0.1;
+    material->diffuse = 0.9;
+    material->specular = 0.9;
+    material->shininess = 200.0;
+    material->color = get_vec(1, 0.2, 1);
+    return (material);
+}
+
+t_light *init_light()
+{
+    t_light *light;
+    
+    light = my_malloc(sizeof(t_light), 1);
+    light->color = get_vec(1, 1, 1);
+    light->light_point = get_vec(-10, 10, -10);
+    light->intensity = 1;
+    return (light);
+}
+
 int main()
 {
     t_buddha    *v;
     t_cam       *cam;
+    t_light     *light;
+    t_material  *material;
 
-    v = my_malloc(sizeof(t_buddha), 1);
-    v->raw_img = my_malloc(sizeof(t_img), 1);
-    cam = my_malloc(sizeof(t_cam), 1);
-    init_mlx(v);
-    init_cam(cam);
-    sphere(v->raw_img, 0.3f, cam);
+    v = init_mlx();
+    cam = init_cam();
+    light = init_light();
+    material = init_material();
+    sphere(v->raw_img, 0.3f, cam, light, material);
     mlx_put_image_to_window(v->mlx, v->win, v->raw_img->img, 0, 0);
     mlx_hook(v->win, 17, 2, destroy_rt, v);
     mlx_hook(v->win, 2, 2, key_destroy, v);
