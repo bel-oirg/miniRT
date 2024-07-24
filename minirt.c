@@ -6,51 +6,12 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 08:29:04 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 08:45:02 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav, t_dot *normalv)
-{
-    t_dot *ambient;
-    t_dot *specular;
-    t_dot *diffuse;
-    double factor;
-    double light_dot_normal;
-    t_dot *effective_color;
-    double reflect_dot_eye;
-    t_dot *lightv;
-    t_dot *reflectv;
-
-    effective_color = v_f(material->color, '*' ,light->intensity);
-    lightv = normalizer(v_v(light->light_point, '-', point));
-    ambient = v_f(effective_color,  '*',  material->ambient);
-
-    light_dot_normal = _dot(*lightv, *normalv);
-    if (light_dot_normal < 0)
-    {
-        
-        diffuse = get_vec(0, 0, 0);
-        specular = get_vec(0, 0, 0);
-    }
-    else
-    {
-        diffuse = v_f(effective_color,  '*',  (material->diffuse * light_dot_normal));
-        lightv = v_f(lightv, '*', -1);
-        reflectv = reflect(lightv, normalv);
-        reflect_dot_eye = (double)_dot(*reflectv, *camerav);
-        if (reflect_dot_eye <= 0)
-            specular = get_vec(0, 0, 0);
-        else
-        {
-            factor = pow(reflect_dot_eye, material->shininess);
-            specular = v_f(get_vec(light->intensity, light->intensity, light->intensity), '*', material->specular * factor);
-        }
-    }
-    return (v_v(v_v(ambient, '+', diffuse),  '+', specular));
-}
 
 t_cam *init_cam()
 {
@@ -58,8 +19,8 @@ t_cam *init_cam()
 
     cam = my_malloc(sizeof(t_cam), 1);
     cam->ratio = (double) WIDTH/HEIGHT;
-    cam->field_of_view = 0.9f;
-    cam->half_view = tan(cam->field_of_view/2);
+    cam->field_of_view = 0.6f;
+    cam->half_view = tan(cam->field_of_view / 2);
     cam->transf = get_vec(0.0f, 0.0f, 0.0f);
     cam->cam_o = get_vec(0.0f, 0.0f, -2.0f);
 
@@ -133,16 +94,7 @@ t_material  *init_material()
     return (material);
 }
 
-t_light *init_light()
-{
-    t_light *light;
-    
-    light = my_malloc(sizeof(t_light), 1);
-    light->color = get_vec(1, 1, 1);
-    light->light_point = get_vec(-10, 10, -10);
-    light->intensity = 1;
-    return (light);
-}
+
 
 int main()
 {

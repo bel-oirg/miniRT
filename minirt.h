@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 08:28:30 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/24 08:50:25 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,7 @@ t_dot	*rot_z(t_dot ray, double norm_angle);
 unsigned int rgb_conv(float r, float g, float b);
 unsigned int get_col(float d, unsigned int base_color);
 t_dot *rgb_v(unsigned int base_color);
+
+//lighting
+t_light *init_light();
+t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav, t_dot *normalv);
