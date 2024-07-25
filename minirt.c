@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/25 00:40:53 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:13:57 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void sphere(t_img *raw, t_sphere *sph, t_cam *cam, t_light *light)
     t_dot *hit_p;
     t_dot *origin;
     t_dot *out_col;
-    float close_p;
 
     origin = v_v(cam->cam_o, '-', sph->sphere_o);
     y = -1;
@@ -61,14 +60,14 @@ void sphere(t_img *raw, t_sphere *sph, t_cam *cam, t_light *light)
             y_offset = (y + 0.5) * cam->pixel_move;
             ray_d = get_vec(cam->half_width - x_offset, cam->half_height - y_offset, 1.0f);
             // ray_d = v_v(ray_d, '+', cam->transf);
-            close_p = degree_2( _dot(*ray_d, *ray_d),   // a
+            sph->hit = degree_2( _dot(*ray_d, *ray_d),   // a
                         2.0f * _dot(*origin, *ray_d),   // b
-                        _dot(*origin, *origin) - pow(sph->raduis, 2));  // c
-            if (isnan(close_p))
+                    _dot(*origin, *origin) - pow(sph->raduis, 2));  // c
+            if (!sph->hit)
                 continue ;
-            hit_p = v_v(origin, '+', v_f(ray_d, '*', close_p));
-            out_col = lighting(sph->material, light, hit_p, v_f(ray_d, '*', -1), normalizer(hit_p));
-            my_mlx_pp(raw, x, y, rgb_conv(out_col->x, out_col->y, out_col->z));
+            hit_p = v_v(origin, '+', v_f(ray_d, '*', sph->hit[0]));
+            out_col = lighting(sph->material, light, hit_p, v_f(ray_d, '*', -1));
+            my_mlx_pp(raw, x, y, vrgb_conv(out_col));
         }
     }
 }
@@ -110,7 +109,7 @@ int main()
     sph = init_sphere(0.5, get_vec(0, 0, 0), get_vec(1, 0, 0));
 
     sphere(v->raw_img, sph, cam, light);
-    
+
     mlx_put_image_to_window(v->mlx, v->win, v->raw_img->img, 0, 0);
     mlx_hook(v->win, 17, 2, destroy_rt, v);
     mlx_hook(v->win, 2, 2, key_destroy, v);

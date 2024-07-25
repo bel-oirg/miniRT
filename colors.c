@@ -6,12 +6,16 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 04:11:34 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 08:11:53 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:15:49 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+unsigned int vrgb_conv(t_dot *color)
+{
+    return rgb_conv(color->x, color->y, color->z);
+}
 unsigned int rgb_conv(float r, float g, float b)
 {
     u_int8_t             red;
@@ -24,14 +28,9 @@ unsigned int rgb_conv(float r, float g, float b)
         g = 1.0f;
     if (b > 1.0f)
         b = 1.0f;
-    // printf("%f\n", r);
-    // printf("%f\n", g);
-    // printf("%f\n", b);
-
     red = 255 * r;
     green = 255 * g;
     blue = 255 * b;
-
     return (red << 16 | green << 8 | blue);
 }
 

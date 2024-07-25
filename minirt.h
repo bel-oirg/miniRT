@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/25 00:31:13 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:14:31 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_phong
 
 typedef struct s_sphere
 {
+    double      *hit;
     t_material  *material;
     double      raduis;
     t_dot       *sphere_o;
@@ -122,7 +123,7 @@ t_dot *reflect(t_dot *in, t_dot *normal);
 //vectors2
 float _dot(t_dot a, t_dot b);
 float   get_length(t_dot a);
-float degree_2(float a, float b, float c);
+double *degree_2(float a, float b, float c);
 
 //ft_mlx
 int key_destroy(int key, t_buddha *v);
@@ -136,10 +137,11 @@ t_dot	*rot_y(t_dot ray, double norm_angle);
 t_dot	*rot_z(t_dot ray, double norm_angle);
 
 //colors
-unsigned int rgb_conv(float r, float g, float b);
-unsigned int get_col(float d, unsigned int base_color);
-t_dot *rgb_v(unsigned int base_color);
+unsigned    int rgb_conv(float r, float g, float b);
+unsigned    int vrgb_conv(t_dot *color);
+unsigned    int get_col(float d, unsigned int base_color);
+t_dot       *rgb_v(unsigned int base_color);
 
 //lighting
 t_light *init_light();
-t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav, t_dot *normalv);
+t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav);

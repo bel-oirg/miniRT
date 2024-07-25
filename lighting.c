@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:34:22 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/24 09:03:12 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:02:26 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ static t_phong *init_phong(t_material *material, t_light *light, t_dot *point, t
     return (p);
 }
 
-t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav, t_dot *normalv)
+t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav)
 {
     t_phong *p;
+    t_dot   *normalv;
 
+    normalv = normalizer(point);
     p = init_phong(material, light, point, normalv);
     if (p->light_dot_normal < 0)
     {
-        
         p->diffuse = get_vec(0, 0, 0);
         p->specular = get_vec(0, 0, 0);
     }
