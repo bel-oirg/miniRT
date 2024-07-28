@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 04:30:26 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/26 08:11:05 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/28 06:31:01 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void    sphere_intersection(t_sphere *sph, t_cam *cam, int x, int y)
     // ray_d = v_v(ray_d, '+', cam->transf);
 
     sph->hit = degree_2( _dot(*sph->ray_d, *sph->ray_d),              // a
-                        2.0f * _dot(*sph->sphere_o, *sph->ray_d),               // b
+                2.0f * _dot(*sph->sphere_o, *sph->ray_d),               // b
             _dot(*sph->sphere_o, *sph->sphere_o) - pow(sph->raduis, 2));  // c
 }

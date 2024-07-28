@@ -6,14 +6,14 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/26 05:19:54 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/28 06:27:47 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#define WIDTH  600
-#define HEIGHT 600
+#define WIDTH  1200
+#define HEIGHT 1200
 
 #include <mlx.h>
 #include <math.h>
@@ -91,7 +91,6 @@ typedef struct s_phong
     double reflect_dot_eye;
 }	t_phong;
 
-
 typedef struct s_sphere
 {
     double      *hit;
@@ -99,7 +98,7 @@ typedef struct s_sphere
     t_material  *material;
     t_dot       *sphere_o;
     t_dot       *ray_d;
-    struct      s_sphere *next;
+    struct s_sphere    *next;
 } t_sphere;
 
 typedef struct s_world
@@ -110,11 +109,21 @@ typedef struct s_world
     double      *all_hits;
 }   t_world;
 
-// typedef struct s_inters
-// {
-//     double  *hit;
-//     t_dot   *ray_d;
-// } t_inter;
+typedef enum    s_types
+{
+    SPHERE,
+    CYLINDER,
+    PLANE
+}   t_types;
+
+typedef struct s_inter
+{
+    t_types         type;
+    t_sphere        *sph;
+    int             h0;
+    int             h1;
+    struct s_inter  *next;
+}   t_inter;
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);
@@ -130,7 +139,6 @@ t_dot *reflect(t_dot *in, t_dot *normal);
 float _dot(t_dot a, t_dot b);
 float   get_length(t_dot a);
 double *degree_2(float a, float b, float c);
-void    sort_all_hits(double *all_hits, int max);
 
 //ft_mlx
 int key_destroy(int key, t_buddha *v);
@@ -154,15 +162,9 @@ t_light *init_light();
 t_dot *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav);
 
 
-//cam
-t_cam *init_cam();
-
-//minirt
-t_material  *init_material(t_dot *color);
-
-//world
-t_world *setup_world(t_light *light);
+//material
+t_material	*init_material(t_dot *color);
 
 //sphere
+t_sphere *init_sphere(double raduis, t_dot *sphere_o, t_dot *color);
 void    sphere_intersection(t_sphere *sph, t_cam *cam, int x, int y);
-t_sphere    *init_sphere(double raduis, t_dot *sphere_o, t_dot *color);
