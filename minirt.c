@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/28 08:59:32 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:26:38 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_world *setup_world(t_light *light)
     new_w = my_malloc(sizeof(t_world), 1);
     new_w->light = light;
     new_w->count_objects = 0;
-    new_w->spheres = init_sphere(0.2, get_vec(0, 0, -1), get_vec(1, 1, 0));
-    new_w->spheres->next = init_sphere(0.1, get_vec(0, 0, -1), get_vec(1, 0, 1));
+    new_w->spheres = init_sphere(0.1, get_vec(0, 0, -1), get_vec(1, 1, 0));
+    new_w->spheres->next = init_sphere(0.2, get_vec(0, 0, -1), get_vec(1, 1, 1));
     sph = new_w->spheres;
     while (sph)
     {
@@ -84,8 +84,8 @@ void    draw_the_world(t_img *raw, t_world *w, t_cam *cam, t_light *light)
                     inter->h0 = sph->hit[0],
                     inter->h1 = sph->hit[1];
                 else
-                    inter->h0 = INT_MIN,
-                    inter->h1 = INT_MIN;
+                    inter->h0 = INT_MAX,
+                    inter->h1 = INT_MAX;
                 inter->type = SPHERE;
                 inter->sph = sph;
                 sph = sph->next;
@@ -105,7 +105,7 @@ void    draw_the_world(t_img *raw, t_world *w, t_cam *cam, t_light *light)
             }
             if (!close_inter->sph->hit)
                 continue;
-            if (close_inter->h0 == INT_MIN)
+            if (close_inter->h0 == INT_MAX)
                 continue;
             hit_p = v_v(origin, '+', v_f(close_inter->sph->ray_d, '*', close_inter->sph->hit[0]));
 
