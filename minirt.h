@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/28 23:03:38 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/29 00:10:55 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,3 +165,6 @@ t_material	*init_material(t_dot *color);
 //sphere
 t_sphere *init_sphere(double raduis, t_dot *sphere_o, t_dot *color);
 void    sphere_intersection(t_inter *inter, t_sphere *sph, t_cam *cam, int x, int y);
+
+//cam
+t_cam   *init_cam();

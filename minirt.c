@@ -6,41 +6,22 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/28 23:08:08 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/29 04:16:23 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cam   *init_cam()
-{
-    t_cam   *cam;
-
-    cam = my_malloc(sizeof(t_cam), 1);
-    cam->ratio = (double) WIDTH/HEIGHT;
-    cam->field_of_view = 1.0f;
-    cam->half_view = tan(cam->field_of_view / 2);
-    cam->transf = get_vec(0.0f, 0.0f, 0.0f);
-    cam->cam_o = get_vec(0.0f, 0.0f, -2.0f);
-    if (cam->ratio >= 1)
-        cam->half_width = cam->half_view,
-        cam->half_height = cam->half_view / cam->ratio;
-    else
-        cam->half_width = cam->half_view * cam->ratio,
-        cam->half_height = cam->half_view;
-    cam->pixel_move = (cam->half_width * 2) / WIDTH;
-    return (cam);
-}
-
-t_world *setup_world(t_light *light)
+t_world *setup_world()
 {
     t_sphere    *sph;
     t_world     *new_w;
 
     new_w = my_malloc(sizeof(t_world), 1);
-    new_w->light = light;
-    new_w->spheres = init_sphere(0.02, get_vec(0, 0, -1), get_vec(1, 0, 0));
-    new_w->spheres->next = init_sphere(0.2, get_vec(0, 0, -1), get_vec(1, 0, 1));
+    new_w->light = init_light();
+    
+    new_w->spheres = init_sphere(0.7, get_vec(0.0f, 0.0f, 0), get_vec(1, 0, 0));
+    // new_w->spheres->next = init_sphere(0.2, get_vec(1, 0, 0), get_vec(1, 0, 1));
     sph = new_w->spheres;
     return (new_w);
 }
@@ -91,10 +72,11 @@ void    draw_the_world(t_img *raw, t_world *w, t_cam *cam)
             }
             close_inter = sort_intersections(inter_head);
             if (!close_inter->sph->hit || close_inter->h0 == INT_MAX)
-                continue;
+                continue ;
             origin = v_v(cam->cam_o, '-', close_inter->sph->sphere_o);
             hit_p = v_v(origin, '+', v_f(close_inter->sph->ray_d, '*', close_inter->sph->hit[0]));
-            out_col = lighting(close_inter->sph->material, w->light, hit_p, v_f(close_inter->sph->ray_d, '*', -1));
+            out_col = lighting(close_inter->sph->material, w->light,
+                    hit_p, v_f(close_inter->sph->ray_d, '*', -1));
             my_mlx_pp(raw, x, y, vrgb_conv(out_col));
         }
     }
@@ -104,13 +86,11 @@ int main()
 {
     t_buddha    *v;
     t_cam       *cam;
-    t_light     *light;
     t_world     *w;
 
     v = init_mlx();
     cam = init_cam();
-    light = init_light();
-    w = setup_world(light);
+    w = setup_world();
 
     draw_the_world(v->raw_img, w, cam);
 

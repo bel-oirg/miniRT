@@ -6,7 +6,7 @@
 #    By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 01:38:09 by bel-oirg          #+#    #+#              #
-#    Updated: 2024/07/28 22:29:01 by bel-oirg         ###   ########.fr        #
+#    Updated: 2024/07/29 00:11:17 by bel-oirg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RM = rm -rf
 
 SRCS = 	minirt.c vectors.c my_malloc.c rotation_matrix.c	\
 		colors.c ft_mlx.c vectors2.c sphere.c material.c	\
-		lighting.c
+		lighting.c cam.c
 
 OBJS = $(SRCS:.c=.o)
 

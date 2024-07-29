@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 04:30:26 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/28 23:04:21 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/29 04:25:09 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,19 @@ void    sphere_intersection(t_inter *inter, t_sphere *sph, t_cam *cam, int x, in
 {
     float       x_offset;
     float       y_offset;
-
+    t_dot       *origin;
 
     x_offset = (x + 0.5) * cam->pixel_move;
     y_offset = (y + 0.5) * cam->pixel_move;
     sph->ray_d = get_vec(cam->half_width - x_offset, cam->half_height - y_offset, 1.0f);
-    // ray_d = v_v(ray_d, '+', cam->transf);
+    
+    // sph->ray_d = v_v(sph->ray_d, '+', get_vec(1, 0, 0));
+    // cam->transf --> (0, 0, 0)
 
-    sph->hit = degree_2( _dot(*sph->ray_d, *sph->ray_d),                    // a
-                2.0f * _dot(*sph->sphere_o, *sph->ray_d),                   // b
-            _dot(*sph->sphere_o, *sph->sphere_o) - pow(sph->raduis, 2));    // c
+    origin = v_v(cam->cam_o, '-', sph->sphere_o);
+    sph->hit = degree_2( _dot(*sph->ray_d, *sph->ray_d),      // a
+                2.0f * _dot(*origin, *sph->ray_d),            // b
+            _dot(*origin, *origin) - pow(sph->raduis, 2));    // c
     if (sph->hit)
         inter->h0 = sph->hit[0],
         inter->h1 = sph->hit[1];
