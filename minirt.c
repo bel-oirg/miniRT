@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:37:52 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/29 04:16:23 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/29 04:58:09 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_world *setup_world()
     new_w = my_malloc(sizeof(t_world), 1);
     new_w->light = init_light();
     
-    new_w->spheres = init_sphere(0.7, get_vec(0.0f, 0.0f, 0), get_vec(1, 0, 0));
-    // new_w->spheres->next = init_sphere(0.2, get_vec(1, 0, 0), get_vec(1, 0, 1));
+    new_w->spheres = init_sphere(0.7, get_vec(0.0f, 1.0f, 0), get_vec(1, 0, 0));
+    new_w->spheres->next = init_sphere(0.2, get_vec(1, 0, 0), get_vec(1, 0, 1));
     sph = new_w->spheres;
     return (new_w);
 }
@@ -48,7 +48,6 @@ void    draw_the_world(t_img *raw, t_world *w, t_cam *cam)
     t_inter     *close_inter;
     t_dot       *hit_p;
     t_dot       *out_col;
-    t_dot       *origin;
     int         x;
     int         y;
 
@@ -73,8 +72,7 @@ void    draw_the_world(t_img *raw, t_world *w, t_cam *cam)
             close_inter = sort_intersections(inter_head);
             if (!close_inter->sph->hit || close_inter->h0 == INT_MAX)
                 continue ;
-            origin = v_v(cam->cam_o, '-', close_inter->sph->sphere_o);
-            hit_p = v_v(origin, '+', v_f(close_inter->sph->ray_d, '*', close_inter->sph->hit[0]));
+            hit_p = v_v(cam->cam_o, '+', v_f(close_inter->sph->ray_d, '*', close_inter->sph->hit[0]));
             out_col = lighting(close_inter->sph->material, w->light,
                     hit_p, v_f(close_inter->sph->ray_d, '*', -1));
             my_mlx_pp(raw, x, y, vrgb_conv(out_col));
