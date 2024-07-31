@@ -6,13 +6,11 @@
 /*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 01:02:58 by abennar           #+#    #+#             */
-/*   Updated: 2024/07/24 00:14:18 by abennar          ###   ########.fr       */
+/*   Updated: 2024/07/31 06:49:47 by abennar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-float get_pixel_move();
 
 void	cylinder(t_img *img)
 {

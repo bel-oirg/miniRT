@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/07/29 00:10:55 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/07/31 06:55:50 by abennar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,10 @@ typedef struct s_inter
     int             h1;
     struct s_inter  *next;
 }   t_inter;
+
+
+// plane 
+void plane(t_img *img, t_cam *cam);
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);
