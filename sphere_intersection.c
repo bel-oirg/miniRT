@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 06:22:35 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 04:21:40 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 08:11:01 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,10 @@ void    intersect_sphere(t_sphere sph, t_ray ray, t_intersection *head)
 	double			abc[3];
 
 	sphere_to_ray = t_t(ray.origin, '-', get_tup(0, 0, 0, 0));
-
     abc[0] = _dot4(ray.direction, ray.direction);
-	
     abc[1] = 2 * _dot4(ray.direction, sphere_to_ray);
-    
     abc[2] = _dot4(sphere_to_ray, sphere_to_ray) - pow(sph.raduis, 2);
-    
     delta = pow(abc[1], 2) - 4 * abc[0] * abc[2];
-    
     if (delta < EPSILON)
 		return ;
     inter1.count = 2;

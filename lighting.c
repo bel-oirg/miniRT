@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:34:22 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 04:24:11 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:08:27 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,7 @@ t_tuple lighting(t_material material, t_light light, t_tuple point, t_tuple eyev
             p.specular = t_f(get_tup(light.intensity, light.intensity, light.intensity, light.intensity), '*', material.specular * p.factor);
         }
     }
-    // printf("factor %f -- specular %f\n", p.factor, material.specular);
     return (t_t(t_t(p.ambient, '+', p.diffuse),  '+', p.specular));
-    // return (p.diffuse);
-    // return (p.ambient);
-    // return (p.specular);  -> the point
 }
 
 t_light *init_light()

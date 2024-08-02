@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 04:17:17 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 07:04:17 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ typedef struct	s_img
 
 typedef struct s_buddha
 {
-	t_img *raw_img;
-	void *mlx;
-	void *win;
+	t_img			*raw_img;
+	void			*mlx;
+	void			*win;
 }	t_buddha;
 
 typedef struct s_dot
@@ -112,23 +112,15 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_material  *material;
+	t_material		*material;
 	//you can apply the trans
 }   t_plane;
 
 typedef struct s_world
 {
-	t_light     *light;
-	t_sphere    *spheres;
+	t_light			*light;
+	t_sphere		*spheres;
 }   t_world;
-
-typedef struct s_comp
-{
-	double  t;
-	t_dot   *point;
-	t_dot   *eyev;
-	t_dot   *normalv;
-}   t_comp;
 
 typedef enum    s_type
 {
@@ -139,8 +131,8 @@ typedef enum    s_type
 
 typedef struct s_object
 {
-	t_type      type;
-	t_sphere    *sphere;
+	t_type      	type;
+	t_sphere    	*sphere;
 	// t_cylinder  *cylinder;
 	// t_splane    *plane;
 }   t_object;
@@ -158,15 +150,6 @@ typedef struct s_intersection
 	t_object                object;
 	struct s_intersection   *next;
 } t_intersection;
-
-typedef struct s_inter
-{
-	t_type			type;
-	t_sphere		*sph;
-	int				h0;
-	int				h1;
-	struct s_inter  *next;
-}   t_inter;
 
 //my_malloc
 void	*my_malloc(size_t size, int mode);
@@ -210,13 +193,8 @@ t_material	*init_material(t_tuple color);
 //sphere
 t_sphere *init_sphere(double raduis, t_tuple sphere_o, t_tuple color);
 
-void		sphere_intersection(t_inter *inter, t_sphere *sph, t_cam *cam, int x, int y);
-
 //cam
 t_cam		*init_cam();
-
-//minirt
-t_inter		*sort_intersections(t_world *w, t_cam *cam, int x, int y);
 
 //simple_plane   //TMP
 void		draw_plane(void *raw, t_cam *cam);

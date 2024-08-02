@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 02:34:24 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 04:29:51 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 07:52:02 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_tuple position(t_ray ray, double t)
 */
 
 
-unsigned int trgb_uint(float t, float r, float g, float b)
+unsigned int trgb_uint(float r, float g, float b, float t)
 {
     u_int8_t             transp;
     u_int8_t             red;
@@ -141,7 +141,7 @@ unsigned int trgb_uint(float t, float r, float g, float b)
         b = 1.0f;
     if (t > 1.0f)
         t = 1.0f;
-    transp = 255 * t;
+    transp = 1;
     red = 255 * r;
     green = 255 * g;
     blue = 255 * b;
