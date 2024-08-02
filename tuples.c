@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 02:34:24 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 11:54:38 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:35:33 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,4 +152,9 @@ unsigned int rgbt_uint(float r, float g, float b, float t)
     blue = 255 * b;
 
     return (transp << 24 | red << 16 | green << 8 | blue);
+}
+
+unsigned int t_rgbt(t_tuple t)
+{
+    return (rgbt_uint(t.t[0], t.t[1], t.t[2], t.t[3]));
 }

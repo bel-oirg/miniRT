@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 12:18:02 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:35:49 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ double			_dot4(t_tuple a, t_tuple b);
 t_tuple			reflect(t_tuple in, t_tuple normal);
 t_tuple			position(t_ray ray, double t);
 unsigned int	rgbt_uint(float r, float g, float b, float t);
+unsigned int	t_rgbt(t_tuple t);
 
 //matrix
 t_tuple			get_tup(double x, double y, double z, double t);

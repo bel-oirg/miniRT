@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 00:34:11 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 12:33:07 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:32:51 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ t_material	*init_material(t_tuple color)
     material->diffuse = 0.9;
     material->specular = 0.9;
     material->shininess = 200.0;
-    material->color = get_tup(1, 0.2, 1, 1);
+    material->color = color;
     return (material);
 }

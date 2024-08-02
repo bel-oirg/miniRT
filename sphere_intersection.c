@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 06:22:35 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 15:11:51 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:25:35 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ t_intersection	*_hit(t_intersection *head)
 	while (current && current->count && current->t < EPSILON)
 		current = current->next;
 	if (!current || current->count == 0)
-		return (NULL);  //maybe in one line
+		return (NULL);
 	return (current);
 }
