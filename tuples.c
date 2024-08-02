@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 02:34:24 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 07:52:02 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:54:38 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_tuple t_t(t_tuple t1, char op, t_tuple t2)
         printf("Unknown op\n");
     return (out);
 }
-
 
 double   get_length4(t_tuple a)
 {
@@ -90,7 +89,15 @@ t_tuple t_f(t_tuple p, char op, float a)
     }
     else if (op == '*' || op == '/')
     {
-        (op == '/') && (a = 1.0/a);
+        if (op == '/')
+        {
+            if (a == 0)
+            {
+                printf("t_f division on 0, I retutned 0\n");
+                return (out);
+            }
+            a = 1.0 / a;
+        }
         out.t[0] = p.t[0] * a;
         out.t[1] = p.t[1] * a;
         out.t[2] = p.t[2] * a;
@@ -114,19 +121,17 @@ t_tuple reflect(t_tuple in, t_tuple normal)
     return (t_t(in, '-', p1));
 }
 
-t_tuple position(t_ray ray, double t)
-{
-    return (t_t(ray.origin, '+', t_f(ray.direction, '*', t)));
-}
-
 /*
     function position(ray, t)
         return ray.origin + ray.direction * t
     end function
 */
+t_tuple position(t_ray ray, double t)
+{
+    return (t_t(ray.origin, '+', t_f(ray.direction, '*', t)));
+}
 
-
-unsigned int trgb_uint(float r, float g, float b, float t)
+unsigned int rgbt_uint(float r, float g, float b, float t)
 {
     u_int8_t             transp;
     u_int8_t             red;
@@ -141,9 +146,10 @@ unsigned int trgb_uint(float r, float g, float b, float t)
         b = 1.0f;
     if (t > 1.0f)
         t = 1.0f;
-    transp = 1;
+    transp = 0;
     red = 255 * r;
     green = 255 * g;
     blue = 255 * b;
+
     return (transp << 24 | red << 16 | green << 8 | blue);
 }

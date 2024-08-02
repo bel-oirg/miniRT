@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 04:30:26 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 03:23:45 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:34:06 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_sphere *init_sphere(double raduis, t_tuple sphere_o, t_tuple color)
         you can remove the rotation on the sphere
         TODO you should invert the transform matrix
     */
-    sph->transform = translate(0, 0, 0);
+    sph->transform = scale(1, 1, 1);
     sph->raduis = raduis;
     sph->sphere_o = sphere_o;
     sph->next = NULL;

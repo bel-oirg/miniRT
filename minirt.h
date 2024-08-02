@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 07:04:17 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:18:02 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_material
 
 typedef struct s_light
 {
-	double			intensity;
 	t_tuple			color;
 	t_tuple			light_point;
 }	t_light;
@@ -214,7 +213,7 @@ t_tuple			normalizer4(t_tuple p);
 double			_dot4(t_tuple a, t_tuple b);
 t_tuple			reflect(t_tuple in, t_tuple normal);
 t_tuple			position(t_ray ray, double t);
-unsigned int	trgb_uint(float t, float r, float g, float b);
+unsigned int	rgbt_uint(float r, float g, float b, float t);
 
 //matrix
 t_tuple			get_tup(double x, double y, double z, double t);
