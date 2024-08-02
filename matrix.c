@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 06:27:23 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/01 02:49:56 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 04:18:33 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ t_matrix  adjoint(t_matrix m)
 
 t_matrix    inv_m(t_matrix m)
 {
-    t_matrix    inv;
+    t_matrix    inv = {0};
     t_matrix    adj;
     double      deter;
     int         i;
@@ -166,7 +166,7 @@ t_matrix    inv_m(t_matrix m)
     if (fabs(deter) < EPSILON)
     {
         printf("This matrix do not have an inverse\n");
-        inv.m[0][0] = NAN;
+        return (inv);
     }
     adj = adjoint(m);
     i = -1;
@@ -199,11 +199,5 @@ t_tuple normal_at(t_sphere sphere, t_tuple world_p)
         world_normal ← transpose(inverse(sphere.transform)) * object_normal
         world_normal.w ← 0
         return normalize(world_normal)
-    end function
-*/
-
-/*
-    function position(ray, t)
-        return ray.origin + ray.direction * t
     end function
 */

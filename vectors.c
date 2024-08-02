@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:17:49 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/01 01:58:14 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:45:45 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,3 @@ t_dot *normalizer(t_dot *p)
     }
     return (get_vec(0, 0, 0));
 }
-
-/*
-    function reflect(in, normal)
-    return in - normal * 2 * dot(in, normal)
-    end function
-
-    //TODO move this ft to lighting.c
-*/
-t_dot *reflect(t_dot *in, t_dot *normal)
-{
-    t_dot *p1;
-
-    p1 = v_f(normal, '*', 2.0f * _dot(*in, *normal));
-    return (v_v(in, '-', p1));
-}
-

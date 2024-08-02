@@ -6,7 +6,7 @@
 /*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/01 09:20:58 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/02 04:17:17 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_cam
 
 typedef struct s_material
 {
-	t_dot			*color;
+	t_tuple			color;
 	double			ambient;
 	double			diffuse;
 	double			specular;
@@ -84,18 +84,18 @@ typedef struct s_material
 typedef struct s_light
 {
 	double			intensity;
-	t_dot			*color;
-	t_dot			*light_point;
+	t_tuple			color;
+	t_tuple			light_point;
 }	t_light;
 
 typedef struct s_phong
 {
-	t_dot			*ambient;
-	t_dot			*specular;
-	t_dot			*diffuse;
-	t_dot			*lightv;
-	t_dot			*reflectv;
-	t_dot			*effective_color;
+	t_tuple			ambient;
+	t_tuple			specular;
+	t_tuple			diffuse;
+	t_tuple			lightv;
+	t_tuple			reflectv;
+	t_tuple			effective_color;
 	double			factor;
 	double			light_dot_normal;
 	double			reflect_dot_eye;
@@ -176,7 +176,6 @@ t_dot		*get_vec(float x, float y, float z);
 t_dot		*normalizer(t_dot *p);
 t_dot		*v_v(t_dot *p1, char op, t_dot *p2);
 t_dot		*v_f(t_dot *p, char op, float a);
-t_dot		*reflect(t_dot *in, t_dot *normal);
 
 //vectors2
 float		_dot(t_dot a, t_dot b);
@@ -200,15 +199,17 @@ unsigned    int get_col(float d, unsigned int base_color);
 t_dot       *rgb_v(unsigned int base_color);
 
 //lighting
-t_light     *init_light();
-t_dot       *lighting(t_material *material, t_light *light, t_dot *point, t_dot *camerav, int shad);
+t_light		*init_light();
+t_tuple		lighting(t_material material, t_light light, t_tuple point, t_tuple eyev, t_tuple normalv);
 int         is_shadowed(t_world *w, t_cam *cam, t_dot *point);
 
 //material
-t_material	*init_material(t_dot *color);
+t_material	*init_material(t_tuple color);
+
 
 //sphere
-t_sphere	*init_sphere(double raduis, t_tuple sphere_o, t_dot *color);
+t_sphere *init_sphere(double raduis, t_tuple sphere_o, t_tuple color);
+
 void		sphere_intersection(t_inter *inter, t_sphere *sph, t_cam *cam, int x, int y);
 
 //cam
@@ -230,8 +231,12 @@ t_intersection	*_hit(t_intersection *head);
 
 //tuples
 t_tuple			t_t(t_tuple p1, char op, t_tuple p2);
+t_tuple			t_f(t_tuple p, char op, float a);
 t_tuple			normalizer4(t_tuple p);
 double			_dot4(t_tuple a, t_tuple b);
+t_tuple			reflect(t_tuple in, t_tuple normal);
+t_tuple			position(t_ray ray, double t);
+unsigned int	trgb_uint(float t, float r, float g, float b);
 
 //matrix
 t_tuple			get_tup(double x, double y, double z, double t);
