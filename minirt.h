@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:50 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 15:35:49 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/05 06:03:19 by abennar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#define WIDTH   800
-#define HEIGHT  800
+#define WIDTH   640
+#define HEIGHT  480
 #define EPSILON 0.00001
 
 #include <mlx.h>
@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
+#include <stdbool.h>
 
 typedef struct	s_img
 {
@@ -47,7 +48,10 @@ typedef struct s_dot
 
 typedef struct s_tuple
 {
-	double			t[4];
+	double			x;
+	double			y;
+	double			z;
+	double			w;
 }   t_tuple;
 
 typedef struct s_matrix
@@ -113,12 +117,17 @@ typedef struct s_plane
 {
 	t_material		*material;
 	//you can apply the trans
+	t_tuple			norm_vec;
+	t_tuple			point;
+	t_matrix		*trans;
+	struct s_plane	*next;
 }   t_plane;
 
 typedef struct s_world
 {
 	t_light			*light;
 	t_sphere		*spheres;
+	t_plane			*planes;
 }   t_world;
 
 typedef enum    s_type
@@ -133,7 +142,7 @@ typedef struct s_object
 	t_type      	type;
 	t_sphere    	*sphere;
 	// t_cylinder  *cylinder;
-	// t_splane    *plane;
+	t_plane    *plane;
 }   t_object;
 
 typedef struct s_ray
@@ -150,6 +159,12 @@ typedef struct s_intersection
 	struct s_intersection   *next;
 } t_intersection;
 
+
+void    draw_the_world(t_img *raw, t_world w, t_cam *cam);
+
+t_plane		*init_plane(t_dot	p, t_dot norm_vec);
+bool	intersect_plane(t_plane plane, t_ray ray, t_intersection *head);
+
 //my_malloc
 void	*my_malloc(size_t size, int mode);
 
@@ -158,6 +173,7 @@ t_dot		*get_vec(float x, float y, float z);
 t_dot		*normalizer(t_dot *p);
 t_dot		*v_v(t_dot *p1, char op, t_dot *p2);
 t_dot		*v_f(t_dot *p, char op, float a);
+t_tuple		cros(t_tuple v1, t_tuple v2);
 
 //vectors2
 float		_dot(t_dot a, t_dot b);
@@ -217,6 +233,7 @@ unsigned int	rgbt_uint(float r, float g, float b, float t);
 unsigned int	t_rgbt(t_tuple t);
 
 //matrix
+t_matrix    *creat_matrix(void);
 t_tuple			get_tup(double x, double y, double z, double t);
 t_tuple			normal_at(t_sphere sphere, t_tuple world_p);
 t_tuple			matrix_tuple(t_matrix m, t_tuple tup);
@@ -230,3 +247,9 @@ t_matrix		scale(double x, double y, double z);
 t_matrix		rot_z(double teta);
 t_matrix		rot_y(double teta);
 t_matrix    	rot_x(double teta);
+
+//rotation
+t_matrix	rotation(t_tuple norm);
+
+
+void printMatrix(t_matrix matrix);

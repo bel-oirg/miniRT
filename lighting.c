@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:34:22 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 15:24:34 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/05 01:14:48 by abennar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_phong init_phong(t_material material, t_light light, t_tuple point, t_t
     t_phong p;
     
     p.effective_color = t_t(material.color, '&' ,light.color);
-    p.effective_color.t[3] = 1;
+    p.effective_color.w = 1;
     p.lightv = normalizer4(t_t(light.light_point, '-', point));
     p.ambient = t_f(p.effective_color,  '*',  material.ambient);
     p.light_dot_normal = _dot4(p.lightv, normalv);

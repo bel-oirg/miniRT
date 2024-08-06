@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuples.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 02:34:24 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 15:35:33 by bel-oirg         ###   ########.fr       */
+/*   Updated: 2024/08/05 01:13:11 by abennar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ t_tuple t_t(t_tuple t1, char op, t_tuple t2)
 
     if (op == '+')
     {
-        out.t[0] = t1.t[0] + t2.t[0];
-        out.t[1] = t1.t[1] + t2.t[1];
-        out.t[2] = t1.t[2] + t2.t[2];
-        out.t[3] = t1.t[3] + t2.t[3];
+        out.x = t1.x + t2.x;
+        out.y = t1.y + t2.y;
+        out.z = t1.z + t2.z;
+        out.w = t1.w + t2.w;
     }
     else if (op == '-')
     {
-        out.t[0] = t1.t[0] - t2.t[0];
-        out.t[1] = t1.t[1] - t2.t[1];
-        out.t[2] = t1.t[2] - t2.t[2];
-        out.t[3] = t1.t[3] - t2.t[3];
+        out.x = t1.x - t2.x;
+        out.y = t1.y - t2.y;
+        out.z = t1.z - t2.z;
+        out.w = t1.w - t2.w;
     }
     else if (op == '&')
     {
-        out.t[0] = t1.t[0] * t2.t[0];
-        out.t[1] = t1.t[1] * t2.t[1];
-        out.t[2] = t1.t[2] * t2.t[2];
-        out.t[3] = t1.t[3] * t2.t[3];
+        out.x = t1.x * t2.x;
+        out.y = t1.y * t2.y;
+        out.z = t1.z * t2.z;
+        out.w = t1.w * t2.w;
     }
     else
         printf("Unknown op\n");
@@ -44,8 +44,8 @@ t_tuple t_t(t_tuple t1, char op, t_tuple t2)
 
 double   get_length4(t_tuple a)
 {
-    return (sqrt(a.t[0] * a.t[0] + a.t[1] * a.t[1]
-            + a.t[2] * a.t[2] + a.t[3] * a.t[3]));
+    return (sqrt(a.x * a.x + a.y * a.y
+            + a.z * a.z + a.w * a.w));
 }
 
 t_tuple normalizer4(t_tuple p)
@@ -56,23 +56,23 @@ t_tuple normalizer4(t_tuple p)
     len = get_length4(p);
     if (len)
     {
-        normalized.t[0] = (p.t[0]) / len;
-        normalized.t[1] = (p.t[1]) / len;
-        normalized.t[2] = (p.t[2]) / len;
-        normalized.t[3] = (p.t[3]) / len;
+        normalized.x = (p.x) / len;
+        normalized.y = (p.y) / len;
+        normalized.z = (p.z) / len;
+        normalized.w = (p.w) / len;
         return (normalized);
     }
-    normalized.t[0] = 0;
-    normalized.t[1] = 0;
-    normalized.t[2] = 0;
-    normalized.t[3] = 0;
+    normalized.x = 0;
+    normalized.y = 0;
+    normalized.z = 0;
+    normalized.w = 0;
     printf("In normalizer4 len == 0, I returned (0,0,0,0)\n");
     return (normalized);
 }
 
 double  _dot4(t_tuple a, t_tuple b)
 {
-    return (a.t[0] * b.t[0] + a.t[1] * b.t[1] + a.t[2] * b.t[2] + a.t[3] * b.t[3]);
+    return (a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w);
 }
 
 t_tuple t_f(t_tuple p, char op, float a)
@@ -82,10 +82,10 @@ t_tuple t_f(t_tuple p, char op, float a)
     if (op == '+' || op == '-')
     {
         (op == '-') && (a = -a);
-        out.t[0] = p.t[0] + a;
-        out.t[1] = p.t[1] + a;
-        out.t[2] = p.t[2] + a;
-        out.t[3] = p.t[3] + a;
+        out.x = p.x + a;
+        out.y = p.y + a;
+        out.z = p.z + a;
+        out.w = p.w + a;
     }
     else if (op == '*' || op == '/')
     {
@@ -98,10 +98,10 @@ t_tuple t_f(t_tuple p, char op, float a)
             }
             a = 1.0 / a;
         }
-        out.t[0] = p.t[0] * a;
-        out.t[1] = p.t[1] * a;
-        out.t[2] = p.t[2] * a;
-        out.t[3] = p.t[3] * a;
+        out.x = p.x * a;
+        out.y = p.y * a;
+        out.z = p.z * a;
+        out.w = p.w * a;
     }
     else
         printf("Unknown op");
@@ -156,5 +156,5 @@ unsigned int rgbt_uint(float r, float g, float b, float t)
 
 unsigned int t_rgbt(t_tuple t)
 {
-    return (rgbt_uint(t.t[0], t.t[1], t.t[2], t.t[3]));
+    return (rgbt_uint(t.x, t.y, t.z, t.w));
 }

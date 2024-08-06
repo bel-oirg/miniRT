@@ -3,23 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+         #
+#    By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 01:38:09 by bel-oirg          #+#    #+#              #
-#    Updated: 2024/08/02 15:30:10 by bel-oirg         ###   ########.fr        #
+#    Updated: 2024/08/05 01:53:34 by abennar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = miniRT  
 GLFLAGS = -lmlx -framework OpenGL -framework AppKit -fsanitize=address 
-CFLAGS = -Wall -Wextra -Werror -Imlx
+CFLAGS =  -Imlx
 RM = rm -rf
 
-SRCS = 	minirt.c vectors.c my_malloc.c transform.c	\
-		colors.c ft_mlx.c vectors2.c sphere.c material.c	\
-		lighting.c cam.c sphere_intersection.c tuples.c \
-		matrix.c
+SRCS = cam.c colors.c draw_world.c ft_mlx.c lighting.c material.c \
+	matrix.c minirt.c my_malloc.c plane_inter.c sphere.c sphere_intersection.c transform.c \
+	tuples.c vectors.c vectors2.c
+
+
 
 OBJS = $(SRCS:.c=.o)
 HEADER = minirt.h
