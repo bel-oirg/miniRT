@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_intersection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 06:22:35 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/02 22:50:02 by abennar          ###   ########.fr       */
+/*   Updated: 2024/08/02 15:25:35 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void    replace_node(t_intersection *current, t_intersection *new)
     current->next = new->next;
 }
 
-void    
-add_intersection(t_intersection *head, t_intersection *new)
+void    add_intersection(t_intersection *head, t_intersection *new)
 {
     t_intersection  *current;
 

@@ -3,44 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abennar <abennar@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: bel-oirg <bel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 06:27:23 by bel-oirg          #+#    #+#             */
-/*   Updated: 2024/08/05 06:30:30 by abennar          ###   ########.fr       */
+/*   Updated: 2024/10/01 10:14:40 by bel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <math.h>
-
-t_matrix    *creat_matrix(void)
-{
-       t_matrix *matrix;
-       int      i;
-       int      j;
-
-       i  = -1;
-       j = -1;
-       matrix = malloc(sizeof(t_matrix));
-       while (i++ < 4)
-       {
-            j  = -1;
-            while (j++ < 4)
-            {
-				matrix->m[i][j] = 0;
-            }
-       }
-	   return (matrix);
-}
 
 t_tuple get_tup(double x, double y, double z, double t)
 {
     t_tuple _t;
 
-    _t.x = x;
-    _t.y = y;
-    _t.z = z;
-    _t.w = t;
+    _t.t[0] = x;
+    _t.t[1] = y;
+    _t.t[2] = z;
+    _t.t[3] = t;
     return (_t);
 }
 
@@ -84,34 +63,19 @@ t_matrix    transp_m(t_matrix m)
 
 t_tuple matrix_tuple(t_matrix m, t_tuple tup)
 {
-    double mult[4];
+    t_tuple    mult;
     int         i;
     int         j;
-
-	double	t[4];
-
-	t[0] = tup.x;
-	t[1] = tup.y;
-	t[2] = tup.z;
-	t[3] = tup.w;
 
     i = -1;
     while (++i < 4)
     {
-        mult[i] = 0;
+        mult.t[i] = 0;
         j = -1;
         while (++j < 4)
-        {
-            mult[i] += m.m[i][j] * t[j];
-        }
+            mult.t[i] += m.m[i][j] * tup.t[j];
     }
-	
-	// tup.x = mult[0];
-	// tup.y = mult[1];
-	// tup.z = mult[2];
-	// tup.w = mult[3];
-	
-    return (get_tup(mult[0], mult[1], mult[2], round(mult[3])));
+    return (mult);
 }
 
 double det_3x3(double m[3][3]) {
@@ -223,7 +187,7 @@ t_tuple normal_at(t_sphere sphere, t_tuple world_p)
     obj_p = matrix_tuple(inv_m(sphere.transform), world_p);
     obj_n = t_t(obj_p, '-', get_tup(0, 0, 0, 0));
     world_n = matrix_tuple(transp_m(inv_m(sphere.transform)), obj_n);
-    world_n.w = 0;
+    world_n.t[3] = 0;
     return (normalizer4(world_n));
 }
 
